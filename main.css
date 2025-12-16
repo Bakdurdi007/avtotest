@@ -1,0 +1,135 @@
+:root {
+    --bg: #f2f2f2;
+    --card: #ffffff;
+    --text: #000;
+    --option: #ffffff;
+    --border: #ccc;
+    --result: #000;
+}
+
+body.dark {
+    --bg: #002455;
+    --card: #012f6b;
+    --text: #ffffff;
+    --option: #013b85;
+    --border: #1e5aa8;
+    --result: #ffdd55;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    font-family: Arial;
+    color: var(--text);
+}
+
+/* START */
+.start-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-screen input {
+    padding: 12px;
+    width: 250px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.start-screen button {
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: gold;
+}
+
+/* TEST */
+.hidden { display: none; }
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 15px;
+    background: var(--card);
+    border-radius: 14px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.timer {
+    font-weight: bold;
+    color: red;
+}
+
+select, button {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: none;
+}
+
+#question {
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+img {
+    width: 100%;
+    max-height: 280px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.option {
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--option);
+    cursor: pointer;
+}
+
+.option.correct { background: #2ecc71; color: #fff; }
+.option.wrong { background: #e74c3c; color: #fff; }
+.option.disabled { cursor: not-allowed; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40px,1fr));
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.cell {
+    padding: 10px;
+    text-align: center;
+    background: #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cell.correct { background: #2ecc71; color: #fff; }
+.cell.wrong { background: #e74c3c; color: #fff; }
+
+@media (max-width:600px) {
+    #question { font-size: 16px; }
+}
