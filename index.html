@@ -4,125 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Avtotest</title>
-
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 15px;
-      background: white;
-      border-radius: 12px;
-    }
-
-    .top {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .timer {
-      font-size: 18px;
-      font-weight: bold;
-      color: red;
-    }
-
-    select {
-      padding: 8px 12px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-
-    #question {
-      font-size: 18px;
-      margin: 15px 0;
-    }
-
-    img {
-      width: 100%;
-      max-height: 300px;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .option {
-      padding: 14px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .option:hover {
-      background: #f1f5ff;
-    }
-
-    .option.correct {
-      background: #c8f7c5;
-      border-color: #4caf50;
-    }
-
-    .option.wrong {
-      background: #f7c5c5;
-      border-color: #f44336;
-    }
-
-    .option.disabled {
-      cursor: not-allowed;
-      opacity: 0.95;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-      gap: 8px;
-      margin-top: 20px;
-    }
-
-    .cell {
-      padding: 10px 0;
-      text-align: center;
-      background: #e0e0e0;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .cell.correct { background: #4caf50; color: white; }
-    .cell.wrong { background: #f44336; color: white; }
-
-    @media (max-width: 600px) {
-      #question { font-size: 16px; }
-      .option { font-size: 14px; }
-    }
-  </style>
+  <link rel="stylesheet" href="main.css">
 </head>
-
 <body>
 
-<div class="container">
-  <div class="top">
-    <h3>Avtotest (20 savol)</h3>
+<!-- START SCREEN -->
+<div class="start-screen" id="startScreen">
+  <h2>Imtihon turini tanlang</h2>
 
-    <div>
+  <input type="text" id="fio" placeholder="F.I.O ni kiriting">
+
+  <button onclick="startExam(20)">20 ta savol</button>
+  <button onclick="startExam(50)">50 ta savol</button>
+</div>
+
+<!-- TEST SCREEN -->
+<div class="container hidden" id="testScreen">
+
+  <div class="top">
+    <h3 id="title">Avtotest</h3>
+
+    <div class="controls">
       <select id="langSelect">
-        <option value="uz">O‘zbek (lotin)</option>
-        <option value="uz_cyrl">Ўзбек (кирил)</option>
+        <option value="uz">O‘zbek</option>
+        <option value="uz_cyrl">Ўзбек</option>
         <option value="ru">Русский</option>
         <option value="kaa">Qaraqalpaq</option>
       </select>
-      <span class="timer" id="timer"> 25:00</span>
+
+      <button id="darkBtn">🌙</button>
+      <span class="timer" id="timer">25:00</span>
     </div>
   </div>
 
