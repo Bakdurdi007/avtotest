@@ -1,56 +1,39 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avtotest</title>
-  <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avtotest - Login/Signup</title>
+    <link rel="stylesheet" href="Login.css">
 </head>
 <body>
 
-<!-- START SCREEN -->
-<div class="start-screen" id="startScreen">
-  <h2>Imtihon turini tanlang</h2>
+<div class="auth-container">
 
-  <input type="text" id="fio" placeholder="F.I.O ni kiriting">
-
-  <button onclick="startExam(20, false)">20 ta savol</button>
-  <button onclick="startExam(50, false)">50 ta savol</button>
-
-  <!-- REAL IMTIHON -->
-  <button class="real-btn" onclick="startExam(20, true)">
-    REAL IMTIXON
-  </button>
-</div>
-
-<!-- TEST SCREEN -->
-<div class="container hidden" id="testScreen">
-
-  <div class="top">
-    <h3 id="title">Avtotest</h3>
-
-    <div class="controls">
-      <select id="langSelect">
-        <option value="uz">O‘zbek</option>
-        <option value="uz_cyrl">Ўзбек</option>
-        <option value="ru">Русский</option>
-        <option value="kaa">Qaraqalpaq</option>
-      </select>
-
-      <button id="zoomOut">A−</button>
-      <button id="zoomIn">A+</button>
-      <button id="darkBtn">🌙</button>
-      <span class="timer" id="timer">25:00</span>
+    <!-- RO'YXATDAN O'TISH -->
+    <div class="form-box" id="signupBox">
+        <h2>Ro'yxatdan o'tish</h2>
+        <input type="text" id="familya" placeholder="Familya">
+        <input type="text" id="ism" placeholder="Ism">
+        <input type="text" id="phoneSign" placeholder="Telefon raqam">
+        <input type="password" id="passSign" placeholder="Parol">
+        <button id="signupBtn">Ro'yxatdan o'tish</button>
+        <p>Allaqachon ro'yxatdan o'tganmisiz? <span id="toLogin">Kirish</span></p>
+        <p id="signupMsg" class="msg"></p>
     </div>
-  </div>
 
-  <p id="question"></p>
-  <img id="qimage">
+    <!-- KIRISH -->
+    <div class="form-box hidden" id="loginBox">
+        <h2>Kirish</h2>
+        <input type="text" id="phoneLogin" placeholder="Telefon raqam">
+        <input type="password" id="passLogin" placeholder="Parol">
+        <button id="loginBtn">Kirish</button>
+        <p>Ro'yxatdan o'tmaganmisiz? <span id="toSignup">Ro'yxatdan o'tish</span></p>
+        <p id="loginMsg" class="msg"></p>
+    </div>
 
-  <div id="options"></div>
-  <div class="grid" id="progress"></div>
 </div>
 
-<script src="main.js"></script>
+<script src="Login.js"></script>
 </body>
 </html>

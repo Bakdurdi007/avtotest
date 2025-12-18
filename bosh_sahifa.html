@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avtotest</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<!-- START SCREEN -->
+<div class="start-screen" id="startScreen">
+  <h2>Imtihon turini tanlang</h2>
+
+  <input type="text" id="fio" placeholder="F.I.O ni kiriting">
+
+  <button onclick="startExam(20, false)">20 ta savol</button>
+  <button onclick="startExam(50, false)">50 ta savol</button>
+
+  <!-- REAL IMTIHON -->
+  <button class="real-btn" onclick="startExam(20, true)">
+    REAL IMTIXON
+  </button>
+</div>
+
+<!-- TEST SCREEN -->
+<div class="container hidden" id="testScreen">
+
+  <div class="top">
+    <h3 id="title">Avtotest</h3>
+
+    <div class="controls">
+      <select id="langSelect">
+        <option value="uz">O‘zbek</option>
+        <option value="uz_cyrl">Ўзбек</option>
+        <option value="ru">Русский</option>
+        <option value="kaa">Qaraqalpaq</option>
+      </select>
+
+      <button id="zoomOut">A−</button>
+      <button id="zoomIn">A+</button>
+      <button id="darkBtn">🌙</button>
+      <span class="timer" id="timer">25:00</span>
+    </div>
+  </div>
+
+  <p id="question"></p>
+  <img id="qimage">
+
+  <div id="options"></div>
+  <div class="grid" id="progress"></div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
