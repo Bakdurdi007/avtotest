@@ -118,21 +118,29 @@ function startTimer() {
 }
 
 /******** ZOOM ********/
-let fontSize = 18;
+let baseFont = 18;
 
 document.getElementById('zoomIn').onclick = () => {
-  if (fontSize < 30) {
-    fontSize += 2;
-    testScreen.style.fontSize = fontSize + 'px';
+  if (baseFont < 26) {
+    baseFont += 2;
+    applyZoom();
   }
 };
 
 document.getElementById('zoomOut').onclick = () => {
-  if (fontSize > 14) {
-    fontSize -= 2;
-    testScreen.style.fontSize = fontSize + 'px';
+  if (baseFont > 14) {
+    baseFont -= 2;
+    applyZoom();
   }
 };
+
+function applyZoom() {
+  testScreen.style.fontSize = baseFont + 'px';
+
+  // 🔥 SAVOLNI MAJBURIY KATTALASHTIRAMIZ
+  qEl.style.fontSize = (baseFont + 4) + 'px';
+}
+
 
 /******** FINISH ********/
 function finish() {
