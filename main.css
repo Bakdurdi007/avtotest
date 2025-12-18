@@ -91,6 +91,14 @@ select, button {
     margin: 15px 0;
 }
 
+/* REAL IMTIHON TUGMASI */
+.real-btn {
+    background: crimson;
+    color: black;
+    font-weight: bold;
+}
+
+
 img {
     width: 100%;
     max-height: 280px;

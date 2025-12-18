@@ -7,6 +7,11 @@ let fio = '';
 let time = 0;
 let timer;
 
+/* REAL IMTIHON */
+let isRealExam = false;
+let wrongCount = 0;
+const MAX_WRONG = 2;
+
 const qEl = document.getElementById('question');
 const imgEl = document.getElementById('qimage');
 const optEl = document.getElementById('options');
@@ -15,11 +20,14 @@ const timerEl = document.getElementById('timer');
 const testScreen = document.getElementById('testScreen');
 
 /******** START ********/
-function startExam(count) {
+function startExam(count, realMode = false) {
   fio = document.getElementById('fio').value.trim();
   if (!fio) return alert('F.I.O kiriting');
 
   total = count;
+  isRealExam = realMode;
+  wrongCount = 0;
+
   time = count === 20 ? 25 * 60 : 60 * 60;
 
   document.getElementById('startScreen').classList.add('hidden');
@@ -90,6 +98,15 @@ function renderQuestion() {
       const correct = k === q.correct_option;
       answers[current] = { selected: k, correct };
 
+      /* REAL IMTIHON XATO NAZORATI */
+      if (!correct && isRealExam) {
+        wrongCount++;
+        if (wrongCount > MAX_WRONG) {
+          finish(true); // ⛔ 3-xato → darhol tugaydi
+          return;
+        }
+      }
+
       renderProgress();
       renderQuestion();
 
@@ -98,7 +115,7 @@ function renderQuestion() {
         if (next !== -1) {
           current = next;
           renderQuestion();
-        } else finish();
+        } else finish(false);
       }, 500);
     };
 
@@ -113,7 +130,7 @@ function startTimer() {
     timerEl.textContent =
         String(Math.floor(time / 60)).padStart(2, '0') + ':' +
         String(time % 60).padStart(2, '0');
-    if (time <= 0) finish();
+    if (time <= 0) finish(false);
   }, 1000);
 }
 
@@ -136,24 +153,23 @@ document.getElementById('zoomOut').onclick = () => {
 
 function applyZoom() {
   testScreen.style.fontSize = baseFont + 'px';
-
-  // 🔥 SAVOLNI MAJBURIY KATTALASHTIRAMIZ
   qEl.style.fontSize = (baseFont + 4) + 'px';
 }
 
-
 /******** FINISH ********/
-function finish() {
+function finish(forceFail = false) {
   clearInterval(timer);
-  const score = answers.filter(a => a.correct).length;
-  const passed = score >= Math.ceil(total * 0.9);
+
+  const score = answers.filter(a => a && a.correct).length;
+  const failed = forceFail || (isRealExam && wrongCount > MAX_WRONG);
 
   document.body.innerHTML = `
   <div class="start-screen">
-    <h1 style="color:${passed ? 'green' : 'red'}">
-      ${passed ? 'O‘TDINGIZ' : 'YIQILDINGIZ'}
+    <h1 style="color:${failed ? 'red' : 'green'}">
+      ${failed ? 'IMTIHON TO‘XTATILDI' : 'IMTIHON YAKUNLANDI'}
     </h1>
     <h2 style="color:var(--result)">Natija: ${score} / ${total}</h2>
+    <p>Xatolar: ${wrongCount}</p>
     <p>${fio}</p>
     <button onclick="location.reload()">Qayta</button>
   </div>`;
