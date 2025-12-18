@@ -16,9 +16,7 @@ body.dark {
     --result: #ffdd55;
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -62,6 +60,7 @@ body {
     padding: 15px;
     background: var(--card);
     border-radius: 14px;
+    transition: font-size 0.2s ease;
 }
 
 .top {

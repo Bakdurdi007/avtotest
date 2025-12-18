@@ -12,6 +12,7 @@ const imgEl = document.getElementById('qimage');
 const optEl = document.getElementById('options');
 const progEl = document.getElementById('progress');
 const timerEl = document.getElementById('timer');
+const testScreen = document.getElementById('testScreen');
 
 /******** START ********/
 function startExam(count) {
@@ -29,8 +30,8 @@ function startExam(count) {
 }
 
 /******** DARK ********/
-document.getElementById('darkBtn').onclick = () =>
-    document.body.classList.toggle('dark');
+document.getElementById('darkBtn').onclick =
+    () => document.body.classList.toggle('dark');
 
 /******** LANG ********/
 document.getElementById('langSelect').onchange = e => {
@@ -66,7 +67,7 @@ function renderProgress() {
 /******** QUESTION ********/
 function renderQuestion() {
   const q = questions[current];
-  qEl.textContent = `${current+1}. ${q.text[lang]}`;
+  qEl.textContent = `${current + 1}. ${q.text[lang]}`;
   imgEl.src = q.image || 'test.jpg';
   optEl.innerHTML = '';
 
@@ -90,18 +91,15 @@ function renderQuestion() {
       answers[current] = { selected: k, correct };
 
       renderProgress();
-      renderQuestion(); // hozirgi savolni ranglab ko‘rsatadi
+      renderQuestion();
 
       setTimeout(() => {
         const next = answers.findIndex(a => a === null);
-
         if (next !== -1) {
           current = next;
-          renderQuestion(); // ✅ KEYINGI SAVOLGA O‘TADI
-        } else {
-          finish();
-        }
-      }, 500); // yarim soniya kutadi (foydalanuvchi rangni ko‘rishi uchun)
+          renderQuestion();
+        } else finish();
+      }, 500);
     };
 
     optEl.appendChild(d);
@@ -113,11 +111,28 @@ function startTimer() {
   timer = setInterval(() => {
     time--;
     timerEl.textContent =
-        String(Math.floor(time/60)).padStart(2,'0') + ':' +
-        String(time%60).padStart(2,'0');
+        String(Math.floor(time / 60)).padStart(2, '0') + ':' +
+        String(time % 60).padStart(2, '0');
     if (time <= 0) finish();
   }, 1000);
 }
+
+/******** ZOOM ********/
+let fontSize = 18;
+
+document.getElementById('zoomIn').onclick = () => {
+  if (fontSize < 30) {
+    fontSize += 2;
+    testScreen.style.fontSize = fontSize + 'px';
+  }
+};
+
+document.getElementById('zoomOut').onclick = () => {
+  if (fontSize > 14) {
+    fontSize -= 2;
+    testScreen.style.fontSize = fontSize + 'px';
+  }
+};
 
 /******** FINISH ********/
 function finish() {
@@ -127,8 +142,8 @@ function finish() {
 
   document.body.innerHTML = `
   <div class="start-screen">
-    <h1 style="color:${passed?'green':'red'}">
-      ${passed?'O‘TDINGIZ':'YIQILDINGIZ'}
+    <h1 style="color:${passed ? 'green' : 'red'}">
+      ${passed ? 'O‘TDINGIZ' : 'YIQILDINGIZ'}
     </h1>
     <h2 style="color:var(--result)">Natija: ${score} / ${total}</h2>
     <p>${fio}</p>
