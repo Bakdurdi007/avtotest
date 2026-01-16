@@ -140,3 +140,42 @@ img {
 @media (max-width:600px) {
     #question { font-size: 16px; }
 }
+
+/* ===== TEST NATIJA (FINISH) DIZAYNI ===== */
+
+.result-success {
+    color: #2ecc71; /* yashil */
+    font-weight: bold;
+}
+
+.result-fail {
+    color: #e74c3c; /* qizil */
+    font-weight: bold;
+}
+
+.result-score {
+    color: var(--result);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.result-wrong {
+    color: crimson;
+    font-size: 16px;
+}
+
+.result-fio {
+    opacity: 0.85;
+    font-size: 15px;
+}
+
+.main-btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: gold;
+    color: black;
+}
+

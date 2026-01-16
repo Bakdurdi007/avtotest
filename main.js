@@ -156,21 +156,42 @@ function applyZoom() {
   qEl.style.fontSize = (baseFont + 4) + 'px';
 }
 
-/******** FINISH ********/
 function finish(forceFail = false) {
   clearInterval(timer);
 
   const score = answers.filter(a => a && a.correct).length;
   const failed = forceFail || (isRealExam && wrongCount > MAX_WRONG);
 
+  // 🔥 GOOGLE SHEETS GA NATIJA YUBORISH
+  fetch(SHEET_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "result",
+      fio: fio,
+      phone: localStorage.getItem("userPhone"),
+      score: score,
+      total: total,
+      wrong: wrongCount,
+      status: failed ? "FAILED" : "PASSED",
+      date: new Date().toLocaleString()
+    })
+  })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Result saved:", data);
+      })
+      .catch(err => console.error("Result error:", err));
+
+  // 🔴 NATIJA EKRANI
   document.body.innerHTML = `
   <div class="start-screen">
-    <h1 style="color:${failed ? 'red' : 'green'}">
+    <h1 class="${failed ? 'result-fail' : 'result-success'}">
       ${failed ? 'IMTIHON TO‘XTATILDI' : 'IMTIHON YAKUNLANDI'}
     </h1>
-    <h2 style="color:var(--result)">Natija: ${score} / ${total}</h2>
-    <p>Xatolar: ${wrongCount}</p>
-    <p>${fio}</p>
-    <button onclick="location.reload()">Qayta</button>
+    <h2 class="result-score">Natija: ${score} / ${total}</h2>
+    <p class="result-wrong">Xatolar: ${wrongCount}</p>
+    <p class="result-fio">${fio}</p>
+    <button class="main-btn" onclick="location.reload()">Qayta</button>
   </div>`;
 }
+

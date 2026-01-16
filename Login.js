@@ -1,5 +1,5 @@
 /********** CONFIG **********/
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbyIM7bsTo-OJgcqrHWlSm-Ti3gKWeIk-R8sKx2THkBsWPjusiG6nRQMxxzeTi3ZQOuD/exec"; // Google Sheets Web App URL
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbxjHtDi4tboxJHLRhrV95Ip2v9KSR1oxw6DzY0WcoNNs9s471g5-Q7_dh_eIW1wOVJt/exec";
 
 /********** ELEMENTLAR **********/
 const signupBox = document.getElementById('signupBox');
@@ -28,14 +28,14 @@ toSignup.onclick = () => {
     loginMsg.textContent = '';
 };
 
-/********** RO'YXATDAN O'TISH **********/
+/********** RO‘YXATDAN O‘TISH **********/
 signupBtn.onclick = () => {
     const fam = document.getElementById('familya').value.trim();
     const ism = document.getElementById('ism').value.trim();
     const phone = document.getElementById('phoneSign').value.trim();
     const pass = document.getElementById('passSign').value.trim();
 
-    if(!fam || !ism || !phone || !pass){
+    if (!fam || !ism || !phone || !pass) {
         signupMsg.style.color = 'red';
         signupMsg.textContent = "Barcha maydonlarni to'ldiring";
         return;
@@ -45,21 +45,23 @@ signupBtn.onclick = () => {
         method: "POST",
         body: JSON.stringify({
             action: "signup",
-            fam: fam,
-            ism: ism,
-            phone: phone,
-            pass: pass
+            fam,
+            ism,
+            phone,
+            pass
         })
     })
         .then(res => res.json())
         .then(data => {
-            if(data.status === "ok"){
+            if (data.status === "ok") {
+                localStorage.setItem("userPhone", phone);
                 signupMsg.style.color = 'green';
                 signupMsg.textContent = "Ro'yxatdan o'tish muvaffaqiyatli! Kirish qismiga o'ting";
-                document.getElementById('familya').value='';
-                document.getElementById('ism').value='';
-                document.getElementById('phoneSign').value='';
-                document.getElementById('passSign').value='';
+
+                document.getElementById('familya').value = '';
+                document.getElementById('ism').value = '';
+                document.getElementById('phoneSign').value = '';
+                document.getElementById('passSign').value = '';
             } else {
                 signupMsg.style.color = 'red';
                 signupMsg.textContent = "Xato yuz berdi!";
@@ -77,7 +79,7 @@ loginBtn.onclick = () => {
     const phone = document.getElementById('phoneLogin').value.trim();
     const pass = document.getElementById('passLogin').value.trim();
 
-    if(!phone || !pass){
+    if (!phone || !pass) {
         loginMsg.style.color = 'red';
         loginMsg.textContent = "Barcha maydonlarni to'ldiring";
         return;
@@ -87,18 +89,28 @@ loginBtn.onclick = () => {
         method: "POST",
         body: JSON.stringify({
             action: "login",
-            phone: phone,
-            pass: pass
+            phone,
+            pass
         })
     })
         .then(res => res.json())
         .then(data => {
-            if(data.status === "ok"){
+            if (data.status === "ok") {
+
+                // 🔥 FOYDALANUVCHINI SAQLAB QO‘YAMIZ
+                localStorage.setItem("user", JSON.stringify({
+                    fam: data.fam,
+                    ism: data.ism,
+                    phone: data.phone
+                }));
+
                 loginMsg.style.color = 'green';
                 loginMsg.textContent = "Kirish muvaffaqiyatli!";
-                setTimeout(()=> {
-                    window.location.href = "bosh_sahifa.html"; // test sahifaga yo'naltirish
+
+                setTimeout(() => {
+                    window.location.href = "bosh_sahifa.html";
                 }, 500);
+
             } else {
                 loginMsg.style.color = 'red';
                 loginMsg.textContent = "Telefon yoki parol noto‘g‘ri";
